@@ -1,0 +1,154 @@
+/* --- Booking Page: Dark Gold Theme --- */
+
+.booking-container {
+  max-width: 700px;
+  margin: 3rem auto;
+  padding: 2.5rem;
+  background: #222; /* dark background */
+  color: white;
+  border-radius: 16px;
+  border: 2px solid #b3995e; /* gold accent */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.booking-container:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(179, 153, 94, 0.5);
+}
+
+/* --- Header --- */
+.booking-container h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #b3995e; /* gold accent */
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.booking-container p {
+  text-align: center;
+  color: #ddd;
+  font-size: 1rem;
+  margin: 0.4rem 0;
+}
+
+.booking-container b {
+  color: #b3995e;
+}
+
+/* --- Booking Form --- */
+.booking-form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+  gap: 1.2rem;
+}
+
+.booking-form label {
+  font-weight: 600;
+  color: #b3995e;
+  font-size: 0.95rem;
+  margin-bottom: 0.3rem;
+}
+
+.booking-form input {
+  padding: 0.75rem 1rem;
+  border: 1.8px solid rgba(179, 153, 94, 0.5);
+  border-radius: 10px;
+  background: #2c2c2c; /* dark input */
+  font-size: 1rem;
+  outline: none;
+  color: white;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.booking-form input:focus {
+  border-color: #a08a4d;
+  box-shadow: 0 0 8px rgba(160, 138, 77, 0.3);
+}
+
+/* --- Confirm Button --- */
+.confirm-btn {
+  background: linear-gradient(135deg, #b3995e, #a08a4d);
+  color: black;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.9rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.confirm-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(160, 138, 77, 0.4);
+  background: linear-gradient(135deg, #a08a4d, #8f7b3c);
+}
+
+.confirm-btn:disabled {
+  background: #555;
+  cursor: not-allowed;
+}
+
+/* --- Location Input Group --- */
+.location-input-group {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.use-location-btn {
+  background: linear-gradient(135deg, #b3995e, #a08a4d);
+  color: black;
+  font-weight: 600;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.use-location-btn:hover {
+  background: linear-gradient(135deg, #a08a4d, #8f7b3c);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.use-location-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* --- Map Preview --- */
+.map-preview {
+  width: 100%;
+  height: 300px;
+  border-radius: 12px;
+  border: 2px solid rgba(179, 153, 94, 0.3);
+  margin-top: 1.8rem;
+  box-shadow: 0 4px 15px rgba(179, 153, 94, 0.2);
+}
+
+/* --- Responsive --- */
+@media screen and (max-width: 768px) {
+  .booking-container {
+    padding: 1.5rem;
+  }
+
+  .booking-container h1 {
+    font-size: 1.6rem;
+  }
+
+  .booking-form input {
+    font-size: 0.95rem;
+  }
+
+  .confirm-btn {
+    font-size: 0.95rem;
+    padding: 0.8rem;
+  }
+}

@@ -1,0 +1,271 @@
+/* ---------------- Profile Page - Dark Gold Theme ---------------- */
+
+.profile-container {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #222; /* dark background */
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+.profile-form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------------- Profile Picture Styling ---------------- */
+
+/* Remove Photo button inside profile picture */
+/* Profile Picture Container */
+.profile-pic-preview {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* space between image and button */
+  margin: 1rem 0;
+}
+
+/* Profile Image */
+.preview-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #b3995e; /* gold border */
+  box-shadow: 0 4px 10px rgba(179, 153, 94, 0.3);
+}
+
+/* Remove Button (beside image) */
+.remove-btn {
+  background-color: #b3995e; /* gold */
+  color: #222; /* dark text */
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(179, 153, 94, 0.5);
+}
+
+.remove-btn:hover {
+  background-color: #a08a4d; /* darker gold on hover */
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(179, 153, 94, 0.6);
+}
+
+.remove-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(179, 153, 94, 0.5);
+}
+
+
+.profile-pic-preview:hover .preview-img {
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(179, 153, 94, 0.6);
+}
+
+/* Default profile picture container */
+.default-pic-container {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.default-pic-title {
+  font-weight: 600;
+  color: #b3995e;
+  margin-bottom: 0.5rem;
+}
+
+.default-pic {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: 0.3s ease;
+}
+
+.default-pic:hover {
+  border-color: #b3995e;
+  transform: scale(1.07);
+}
+
+
+
+
+/* ---------------- File Upload Input ---------------- */
+
+input[type="file"] {
+  margin-top: 0.8rem;
+  background: #2c2c2c;
+  padding: 0.6rem;
+  border-radius: 8px;
+  color: #b3995e;
+  border: 1px dashed #b3995e;
+  cursor: pointer;
+}
+
+input[type="file"]::-webkit-file-upload-button {
+  background: #b3995e;
+  color: #222;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+input[type="file"]::-webkit-file-upload-button:hover {
+  background: #a08a4d;
+}
+
+/* ---------------- Form Inputs ---------------- */
+
+.profile-form label {
+  margin-top: 1rem;
+  font-weight: 600;
+  color: #b3995e; /* gold accent */
+}
+
+.profile-form input,
+.profile-form select {
+  padding: 0.6rem 0.8rem;
+  margin-top: 0.3rem;
+  border-radius: 8px;
+  border: none;
+  background: #2c2c2c;
+  color: white;
+  outline: none;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-form input:focus,
+.profile-form select:focus {
+  border: 1.5px solid #b3995e;
+  box-shadow: 0 0 8px rgba(179, 153, 94, 0.35);
+}
+
+/* ---------------- Submit Button ---------------- */
+
+.profile-form button {
+  margin-top: 1.5rem;
+  padding: 0.75rem 1rem;
+  background-color: #b3995e; /* gold button */
+  color: #222;
+  font-weight: 600;
+  border: none;
+  border-radius: 9999px; /* fully rounded */
+  cursor: pointer;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-form button:hover {
+  background-color: #a08a4d;
+  box-shadow: 0 4px 12px rgba(179, 153, 94, 0.35);
+}
+
+/* ---------------- Languages Badges ---------------- */
+
+.languages-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 0.5rem;
+}
+
+.language-badge {
+  background-color: #b3995e;
+  color: #222;
+  padding: 4px 8px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.3s ease;
+}
+
+.language-badge:hover {
+  background-color: #a08a4d;
+}
+
+/* ---------------- Messages ---------------- */
+
+.message {
+  color: #b3995e;
+  font-weight: 600;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+/* ---------------- Change Password Section ---------------- */
+
+.section-title {
+  margin-top: 2rem;
+  color: #b3995e;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.change-password-form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  background: #1a1a1a;
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid #b3995e55;
+}
+
+.change-password-form input {
+  background: #2c2c2c;
+  border: none;
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  color: white;
+  margin-top: 0.4rem;
+}
+
+.change-password-btn {
+  margin-top: 1rem;
+  background: #b3995e;
+  border: none;
+  padding: 0.75rem;
+  color: #222;
+  font-weight: 600;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.change-password-btn:hover {
+  background: #a08a4d;
+  box-shadow: 0 4px 12px rgba(179, 153, 94, 0.35);
+}
+
+/* ---------------- Responsive ---------------- */
+
+@media screen and (max-width: 500px) {
+  .profile-container {
+    padding: 1.5rem;
+  }
+
+  .profile-form input,
+  .profile-form select,
+  .profile-form button {
+    width: 100%;
+  }
+
+  .default-pic {
+    width: 60px;
+    height: 60px;
+  }
+
+  .preview-img {
+    width: 110px;
+    height: 110px;
+  }
+}
