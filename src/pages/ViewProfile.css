@@ -4,8 +4,10 @@
   max-width: 950px;
   margin: 3rem auto;
   padding: 2.5rem;
-  background: #1e1e1e; /* Dark container */
-  color: #f5f5f5; /* Light text */
+  background: #1e1e1e;
+  /* Dark container */
+  color: #f5f5f5;
+  /* Light text */
   border-radius: 16px;
   border: 2px solid #b3995e;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
@@ -17,7 +19,8 @@
 .vp-name {
   font-size: 2.4rem;
   font-weight: 700;
-  color: #b3995e; /* gold accent */
+  color: #b3995e;
+  /* gold accent */
   margin-bottom: 0.8rem;
   text-align: center;
   letter-spacing: 0.5px;
@@ -34,7 +37,8 @@
 
 /* --- Details Section --- */
 .vp-details {
-  background: #222; /* dark detail card */
+  background: #222;
+  /* dark detail card */
   padding: 1.5rem;
   border-radius: 12px;
   border-left: 4px solid #b3995e;
@@ -70,7 +74,8 @@
 }
 
 .vp-service-card {
-  background: #222; /* dark card */
+  background: #222;
+  /* dark card */
   padding: 1rem 1.2rem;
   border-radius: 10px;
   flex: 1 1 260px;
@@ -147,7 +152,8 @@
 /* --- Reviews Button --- */
 .vp-reviews-btn {
   padding: 12px 25px;
-  background: #bfa06b; /* metallic gold */
+  background: #bfa06b;
+  /* metallic gold */
   color: #111;
   border: none;
   border-radius: 10px;
@@ -168,16 +174,62 @@
 @media screen and (max-width: 768px) {
   .vp-container {
     padding: 1.5rem;
+    margin: 1rem auto;
   }
 
+  .vp-name {
+    font-size: 1.8rem;
+  }
+
+  /* Stack services */
   .vp-services-grid {
     flex-direction: column;
   }
 
+  .vp-service-card {
+    flex: 1 1 auto;
+    width: 100%;
+  }
+
+  /* Portfolio Images */
+  .vp-portfolio-images,
+  .vp-portfolio-videos {
+    /* Use grid for better mobile stacking logic, or keep flex but ensure full width */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem;
+  }
+
   .vp-portfolio-images img,
   .vp-portfolio-videos iframe,
-  .vp-portfolio-videos video {
+  .vp-portfolio-videos video,
+  .vp-video-card {
     max-width: 100%;
+    width: 100%;
     height: auto;
+    object-fit: cover;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .vp-container {
+    padding: 1rem;
+    border-radius: 8px;
+    border-width: 1px;
+  }
+
+  .vp-name {
+    font-size: 1.5rem;
+  }
+
+  .vp-section h2 {
+    font-size: 1.2rem;
+  }
+
+  /* Single column for images on very small screens? or stick to 2? 
+     Let's allow 2 usually, but if too small, 1. */
+  .vp-portfolio-images,
+  .vp-portfolio-videos {
+    grid-template-columns: 1fr;
   }
 }

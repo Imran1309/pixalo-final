@@ -43,13 +43,31 @@ const PortfolioForm = ({ form, setForm, userId, setPhotographer }) => {
     try {
       const payload = { userId, ...form };
 
+      const token = localStorage.getItem("token");
+      if (token === "mock-creator-token") {
+          const newP = { 
+             ...payload, 
+             _id: "mock-portfolio-id",
+             location: { type: 'Point', coordinates: [form.longitude, form.latitude] },
+             availability: {},
+             bookingLeadTime: {}
+          };
+          localStorage.setItem("mock-photographer", JSON.stringify(newP));
+          setPhotographer(newP);
+          // Navigate to media upload page
+          navigate("/portfolio/media"); 
+          return;
+      }
+
       const res = await axios.post(
         `${API_URL}/api/photographers/profile`,
         payload
       );
 
       setPhotographer(res.data.photographer);
-      alert("Portfolio saved successfully!");
+      
+      // Navigate to Media upload page
+      navigate("/portfolio/media"); 
     } catch (err) {
       console.error(err);
       alert("Failed to save portfolio.");

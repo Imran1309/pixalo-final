@@ -15,13 +15,26 @@ const CreatorLogin = () => {
     // Simulate Login Logic
     const storedUser = JSON.parse(localStorage.getItem("creatorUser"));
     
+    // Allow login if credentials match OR if using a specific test account if you want, 
+    // but here we stick to the storedUser check.
+    // For easier testing, let's also allow a generic "test" login if no stored user exists? 
+    // No, strictly follow storedUser for now as per existing code logic.
+    
     if (storedUser && storedUser.email === email && storedUser.password === password) {
        console.log("Creator Login Success", email);
        // Set 'user' for Navbar to detect logged in state
-       const publicUser = { ...storedUser, role: "photographer" };
-       localStorage.setItem("user", JSON.stringify(publicUser));
+       // Map firstName/lastName to name for Profile.jsx compatibility
+       const publicUser = { 
+           ...storedUser, 
+           name: `${storedUser.firstName} ${storedUser.lastName}`,
+           role: "photographer",
+           _id: "mock-creator-id" 
+       };
        
-       navigate("/");
+       localStorage.setItem("user", JSON.stringify(publicUser));
+       localStorage.setItem("token", "mock-creator-token"); // specific mock token
+       
+       navigate("/profile");
     } else {
        alert("Invalid email or password");
     }

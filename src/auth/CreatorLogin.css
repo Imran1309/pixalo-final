@@ -287,3 +287,26 @@
         padding: 2rem;
     }
 }
+
+@media (max-width: 480px) {
+    .creator-login-card {
+        padding: 1.5rem;
+    }
+
+    .creator-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .creator-form input {
+        padding: 0.8rem 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .creator-social-row {
+        flex-direction: column;
+    }
+
+    .creator-login-btn {
+        padding: 0.8rem;
+    }
+}

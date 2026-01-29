@@ -7,7 +7,10 @@ import CreatorSignup from "./auth/CreatorSignup";
 import ForgotPassword from "./auth/ForgotPassword";
 import Profile from "./pages/Profile";
 import Navbar from "./Navbar"; // create this component
-import PhotographerPortfolio from "./PhotographerPortfolio/PhotographerPortfolio";
+import PhotographerPortfolio from "./pages/PhotographerPortfolio"; // Updated path to pages
+import PhotographerServices from "./pages/PhotographerServices"; // New page
+import PortfolioMedia from "./pages/PortfolioMedia"; // New Page
+import PhotographerAvailability from "./pages/PhotographerAvailability"; // New Page
 import ViewServices from "./pages/ViewServices";
 import FindCreators from "./pages/FindCreators";
 import ViewProfile from "./pages/ViewProfile";
@@ -21,7 +24,7 @@ import ResetPassword from "./auth/ResetPassword";
 // Wrapper to conditionally show Navbar
 const AppWrapper = () => {
   const location = useLocation();
-  const hideNavbarRoutes = ["/", "/login", "/signup", "/forgot-password", "/creator-login", "/creator-signup", "/personal-information", "/service-details", ];
+  const hideNavbarRoutes = ["/", "/login", "/signup", "/forgot-password", "/creator-login", "/creator-signup", "/personal-information", "/service-details", "/profile", "/portfolio", "/portfolio/services", "/portfolio/media"];
   const showNavbar = !hideNavbarRoutes.includes(location.pathname);
 
   return (
@@ -36,6 +39,9 @@ const AppWrapper = () => {
         <Route path="/creator-signup" element={<CreatorSignup />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/portfolio" element={<PhotographerPortfolio />} />
+        <Route path="/portfolio/media" element={<PortfolioMedia />} />
+        <Route path="/portfolio/services" element={<PhotographerServices />} />
+        <Route path="/portfolio/availability" element={<PhotographerAvailability />} />
         <Route path="/creators" element={<FindCreators />} /> 
         <Route path="/services/:id" element={<ViewServices />} /> 
         <Route path="/photographer/:userId" element={<ViewProfile />} />

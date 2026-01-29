@@ -259,7 +259,6 @@
 @media (max-width: 900px) {
     .creator-signup-container {
         flex-direction: column-reverse;
-        /* Put form first? Or standard column. */
         flex-direction: column;
     }
 
@@ -270,5 +269,29 @@
     .creator-signup-card {
         padding: 2rem;
         width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .creator-signup-card {
+        padding: 1.5rem;
+    }
+
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+        /* Let margins handle spacing if any, or small gap */
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .signup-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .signup-submit-btn {
+        padding: 0.8rem;
     }
 }

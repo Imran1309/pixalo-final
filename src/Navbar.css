@@ -125,3 +125,23 @@
 .auth-btn.signup:hover {
   background-color: #a08a4d;
 }
+
+.nav-back-btn {
+  background: transparent;
+  border: none;
+  color: #b3995e;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  margin-right: -0.5rem;
+}
+
+.nav-back-btn:hover {
+  background: rgba(179, 153, 94, 0.2);
+  transform: translateX(-3px);
+  color: #fff;
+}

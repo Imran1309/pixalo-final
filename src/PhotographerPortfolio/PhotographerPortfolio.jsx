@@ -55,6 +55,30 @@ const PhotographerPortfolio = () => {
 
   useEffect(() => {
     if (!userId) return;
+    
+    // Mock flow handling
+    const token = localStorage.getItem("token");
+    if (token === "mock-creator-token") {
+        const localP = JSON.parse(localStorage.getItem("mock-photographer"));
+        if (localP) {
+            setPhotographer(localP);
+            setForm({
+                introduction: localP.introduction || "",
+                yearsOfExperience: localP.yearsOfExperience || "",
+                typeOfWork: localP.typeOfWork || "Photographer",
+                specialization: localP.specialization || [],
+                latitude: localP.location?.coordinates?.[1] || "",
+                longitude: localP.location?.coordinates?.[0] || "",
+            });
+            setAvailabilityForm(localP.availability || availabilityForm);
+            setLeadTimeForm(localP.bookingLeadTime || leadTimeForm);
+        } else {
+            setPhotographer(null);
+        }
+        setLoading(false);
+        return;
+    }
+
     const fetchProfile = async () => {
       try {
         const res = await axios.get(
@@ -119,6 +143,17 @@ const PhotographerPortfolio = () => {
   const saveProfile = async () => {
     try {
       const payload = { userId, ...form };
+      
+      const token = localStorage.getItem("token");
+      if (token === "mock-creator-token") {
+          const updatedP = { ...photographer, ...form, location: { type: 'Point', coordinates: [form.longitude, form.latitude] } };
+          localStorage.setItem("mock-photographer", JSON.stringify(updatedP));
+          setPhotographer(updatedP);
+          setEditMode(false);
+          alert("Profile updated successfully! (Mock)");
+          return;
+      }
+
       const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/api/photographers/profile`,
         payload

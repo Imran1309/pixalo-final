@@ -31,12 +31,43 @@ import {
 import slideimage1 from "./assets/slideimage1.jpg";
 import slideimage2 from "./assets/slideimage2.jpg";
 import slideimage3 from "./assets/slideimage3.jpg";
+import newSpiral from "./assets/new-spiral.png";
 import "./Home.css";
 
 const Home = () => {
   const [user, setUser] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
   const navigate = useNavigate();
+
+  const [featuredCreators, setFeaturedCreators] = useState([
+      {
+        name: "Ravi Lenswala",
+        image: "https://images.unsplash.com/photo-1554048612-387768052bf7?auto=format&fit=crop&q=80&w=300&h=300",
+        desc: "Captures candid wedding moments with a cinematic touch. Clients love his natural storytelling style and warm color grading."
+      },
+      {
+         name: "Meera Clicks",
+         image: "https://images.unsplash.com/photo-1542596594-649edbc13630?auto=format&fit=crop&q=80&w=300&h=300",
+         desc: "Expert in baby and maternity shoots with a dreamy tone. Her sessions are perfectly timed for relaxed, beautiful portraits."
+      },
+      {
+         name: "Arjun Studio",
+         image: "https://images.unsplash.com/photo-1522075469751-3a381d30f422?auto=format&fit=crop&q=80&w=300&h=300",
+         desc: "Specializes in high-energy event photography and corporate branding. Known for quick delivery and sharp, vibrant edits."
+      }
+  ]);
+
+  useEffect(() => {
+    const published = JSON.parse(localStorage.getItem("publishedProfile"));
+    if (published) {
+       setFeaturedCreators(prev => {
+           if (prev.some(c => c.name === published.name)) return prev;
+           return [published, ...prev];
+       });
+       
+       // Optional: Clean up query param if we wanted to be fancy, but simple is fine.
+    }
+  }, []);
 
   const slides = [
     {
@@ -150,6 +181,33 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Featured Creators */}
+      <section className="featured-section">
+        <div className="featured-container">
+          <div className="featured-left">
+            <h2>Featured Creators</h2>
+            <p>
+              Discover talented photographers and videographers handpicked for their creativity, quality, and professionalism. 
+              These creators consistently deliver standout work and are highly rated by clients in your area.
+            </p>
+            <button className="explore-all-btn" onClick={() => navigate("/creators")}>
+              Explore All Creators <MoveRight size={16} style={{marginLeft:'8px'}}/>
+            </button>
+          </div>
+          <div className="featured-right">
+             {featuredCreators.map((creator, idx) => (
+               <div className="featured-card" key={idx}>
+                  <div className="featured-img-wrapper">
+                     <img src={creator.image} alt={creator.name} />
+                  </div>
+                  <h3>{creator.name}</h3>
+                  <p>{creator.desc}</p>
+               </div>
+             ))}
+          </div>
+        </div>
+      </section>
+
       {/* Slideshow Section */}
       <section className="slideshow-section">
         <div className="slideshow-container">
@@ -179,23 +237,28 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Services */}
-      <section className="services-section" id="services">
-        <div className="services-header">
-          <h2>Our Solution & <br /><i>Services.</i></h2>
-          <button className="lets-talk-btn">LET'S TALK</button>
-        </div>
-        <div className="services-grid">
-          {serviceItems.map((item, idx) => (
-            <div key={idx} className={`service-card ${item.bgColor}`}>
-              <div className="card-top-gradient"></div>
-              <div className="service-icon-container">
-                {item.icon}
+
+
+      {/* Services Section */}
+      <section className="services-section">
+        <div className="services-container">
+          <div className="services-header">
+            <h2>Our Solution & <br /> <i>Services.</i></h2>
+            <button className="lets-talk-btn">LET'S TALK</button>
+          </div>
+          
+          <div className="services-grid">
+            {serviceItems.map((item, idx) => (
+              <div key={idx} className="service-card-white">
+                <div className={`service-gradient ${item.bgColor}`}></div>
+                <div className="service-icon-box">
+                  {item.icon}
+                </div>
+                <h3>{item.text}</h3>
+                <p>{item.desc}</p>
               </div>
-              <h3>{item.text}</h3>
-              <p className="service-tag">{item.desc}</p>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
@@ -266,7 +329,7 @@ const Home = () => {
           <div className="testimonials-right">
              <h2>We’re helping <br/> <span className="star-yellow">✨</span> clients capture <br/> memories <br/> across the map.</h2>
              <p>So whether it's a wedding, pre-wedding, birthday, or shoot for your brand —our creators deliver more than photos; they deliver moments</p>
-             <button className="explore-all-btn">EXPLORE ALL</button>
+             <button className="explore-all-btn" onClick={() => navigate("/creators")}>EXPLORE ALL</button>
              <div className="loop-decor"></div>
           </div>
         </div>
@@ -285,9 +348,7 @@ const Home = () => {
             
             <div className="book-action">
                <div className="curly-doodle">
-                 <svg width="60" height="60" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M80 20 C 20 50, 50 90, 20 80" stroke="#ccc" strokeWidth="2" fill="none" strokeDasharray="5,5" />
-                 </svg>
+                 <img src={newSpiral} alt="decoration" className="curly-doodle-img" />
                </div>
                <button>BOOK NOW</button>
             </div>

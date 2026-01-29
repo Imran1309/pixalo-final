@@ -1,276 +1,343 @@
-/* Container */
-.portfolio-container {
-  padding: 2rem 5%;
-  background: #181818;
-  color: white;
+/* ---------------- About You Page Theme ---------------- */
+
+.about-you-page {
+  background-color: #000;
   min-height: 100vh;
-  font-family: Arial, sans-serif;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  padding-bottom: 2rem;
+}
+
+/* Header */
+.portfolio-header {
+  padding: 0 3rem;
+  height: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #333;
+  margin-bottom: 2rem;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.portfolio-header h2 {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #fff;
+  margin: 0;
+}
+
+.header-logo {
+  height: 100%;
+  max-height: 60px;
+  width: auto;
+  object-fit: contain;
+}
+
+.user-avatar-small {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid #555;
+}
+
+.user-avatar-small img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Content Container */
+.about-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 3rem;
 }
 
 /* Headings */
-.portfolio-container h1,
-.portfolio-container h2 {
-  color: #b3995e;
+h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #fff;
+}
+
+.sub-label {
+  color: #888;
   margin-bottom: 1rem;
-}
-.coords-input{
-    margin-bottom: 10px;
-}
-/* Forms */
-.portfolio-form,
-.feature-section {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  max-width: 700px;
-  background: #222;
-  padding: 2rem;
-  border-radius: 1rem;
-  margin-bottom: 2rem;
-}
-
-/* Inputs and Selects */
-.portfolio-form input,
-.portfolio-form select,
-.feature-section input,
-.feature-section select {
-  padding: 0.8rem;
-  margin-right: 10px;
-  border-radius: 8px;
-  border: none;
-  background: #2c2c2c;
-  color: white;
-  outline: none;
-}
-
-/* Specializations & Availability */
-.specialization-section,
-.availability-day {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.specialization-section label,
-.availability-day label {
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
   font-size: 0.9rem;
 }
 
-/* Buttons */
-.feature-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-top: 1rem;
-}
-
-.feature-buttons button,
-button {
-  background: #b3995e;
-  color: black;
-  border: none;
-  padding: 0.8rem 1.5rem;
+/* Rich Text Area */
+.rich-text-area {
+  border: 1px solid #444;
   border-radius: 8px;
+  background: #111;
+  overflow: hidden;
+  margin-bottom: 3rem;
+}
+
+.rich-text-toolbar {
+  background: #000;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid #444;
+  display: flex;
+  gap: 1rem;
+}
+
+.rich-text-toolbar span {
+  font-size: 0.8rem;
+  color: #aaa;
+  border: 1px solid #333;
+  padding: 2px 8px;
+  border-radius: 4px;
   cursor: pointer;
-  font-weight: 600;
-  transition: 0.3s;
 }
 
-.feature-buttons button:hover,
-button:hover {
-  background: #a08a4d;
+.rich-text-area textarea {
+  width: 100%;
+  min-height: 150px;
+  background: transparent;
+  border: none;
+  padding: 1rem;
+  color: #ccc;
+  font-family: inherit;
+  resize: vertical;
+  outline: none;
 }
 
-/* Loading */
-.loading {
-  text-align: center;
-  color: #b3995e;
-  margin-top: 3rem;
+/* Form Grid */
+.form-row-grid {
+  display: grid;
+  grid-template-columns: 200px 180px 1fr;
+  /* Experience (narrower), Type (narrow), Location (Full remaining) */
+  gap: 3rem;
+  margin-bottom: 3rem;
+  align-items: start;
 }
 
-/* Feature Section Headings */
-.feature-section h4 {
-  color: #b3995e;
-  margin-bottom: 0.5rem;
+.form-group h3 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+/* Number Input */
+.custom-number-input {
+  display: flex;
+  align-items: center;
+  border: 1px solid #444;
+  border-radius: 6px;
+  padding: 0;
+  width: 150px;
+  background: #000;
+  height: 40px;
+  position: relative;
+}
+
+.custom-number-input input {
+  background: transparent;
+  border: none;
+  color: #fff;
+  width: 100%;
+  padding: 0 1rem;
+  font-size: 1rem;
+  outline: none;
+  /* Hide spin button standard */
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.custom-number-input input::-webkit-outer-spin-button,
+.custom-number-input input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.spinners {
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid #444;
+  height: 100%;
+}
+
+.spinners button {
+  border: none;
+  background: #222;
+  color: #aaa;
+  font-size: 0.6rem;
+  height: 50%;
+  padding: 0 5px;
+  cursor: pointer;
+}
+
+.spinners button:hover {
+  background: #333;
+}
+
+.spinners button:first-child {
+  border-bottom: 1px solid #444;
 }
 
 /* Checkboxes */
-.feature-section input[type="checkbox"] {
-  accent-color: #b3995e;
-}
-
-/* Select fields inside feature sections */
-.feature-section select {
-  width: 200px;
-  margin-top: 0.5rem;
-}
-
-/* Small margins for inner divs */
-.feature-section div {
-  margin-bottom: 0.5rem;
-}
-
-
-/* Location inputs */
-.location-section input {
-  width: calc(50% - 0.5rem);
-}
-/* Editable Fields */
-.portfolio-container input[type="text"],
-.portfolio-container input[type="number"] {
-  padding: 0.6rem 0.8rem;
-  border-radius: 8px;
-  border: none;
-  background: #2c2c2c;
-  color: white;
-  outline: none;
-  width: 100%;
-  max-width: 400px;
-  margin-top: 5px;
-}
-
-/* Edit icon next to fields */
-.portfolio-container h1,
-.portfolio-container p {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-/* Pencil icon styling */
-.portfolio-container svg {
-  cursor: pointer;
-  color: #b3995e;
-  transition: 0.3s;
-}
-
-.portfolio-container svg:hover {
-  color: #a08a4d;
-}
-
-/* Save & Cancel buttons in edit mode */
-.feature-buttons {
-  display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
-}
-
-.feature-buttons button {
-  background: #b3995e;
-  color: black;
-  border: none;
-  padding: 0.8rem 1.5rem;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: 0.3s;
-}
-
-.feature-buttons button:hover {
-  background: #a08a4d;
-}
-
-/* Location input alignment in edit mode */
-.portfolio-container p input[type="number"] {
-  width: calc(50% - 5px);
-  margin-right: 5px;
-}
-/* --- Tabs --- */
-.tabs {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
-
-.tabs button {
-  padding: 0.5rem 1.2rem;
-  border: none;
-  border-radius: 8px;
-  background: #2c2c2c;
-  color: white;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.tabs button.active,
-.tabs button:hover {
-  background: #b3995e;
-  color: black;
-}
-
-/* --- Portfolio Images Section --- */
-.portfolio-images,
-.portfolio-videos {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 1rem;
-  margin-top: 1rem;
-}
-
-.portfolio-images img,
-.portfolio-videos video {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 8px;
-  border: 2px solid #b3995e;
-  transition: transform 0.3s, box-shadow 0.3s;
-  cursor: pointer;
-}
-
-.portfolio-images img:hover,
-.portfolio-videos video:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 15px #b3995e;
-}
-
-/* --- Upload Section --- */
-.upload-section {
+.checkbox-group-vertical {
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
-  margin-top: 1rem;
+  gap: 1rem;
 }
 
-.upload-section input[type="file"] {
-  padding: 0.6rem;
+.custom-checkbox {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding-left: 30px;
+  margin-bottom: 0px;
+  cursor: pointer;
+  font-size: 1rem;
+  user-select: none;
+  color: #ccc;
+}
+
+.custom-checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 2px;
+  left: 0;
+  height: 18px;
+  width: 18px;
+  background-color: transparent;
+  border: 1px solid #666;
+  border-radius: 4px;
+}
+
+.custom-checkbox:hover input~.checkmark {
+  border-color: #999;
+}
+
+.custom-checkbox input:checked~.checkmark {
+  background-color: transparent;
+  border-color: #fff;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.custom-checkbox input:checked~.checkmark:after {
+  display: block;
+}
+
+.custom-checkbox .checkmark:after {
+  left: 5px;
+  top: 1px;
+  width: 5px;
+  height: 10px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/* Select */
+.custom-select {
+  width: 100%;
+  padding: 14px 16px;
+  /* Increased padding for full visibility */
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #ccc;
+  /* Lighter border for white background */
   border-radius: 8px;
-  border: none;
-  background: #2c2c2c;
-  color: white;
+  height: auto;
+  /* Allow growth */
+  min-height: 52px;
+  /* Sufficient height */
+  font-size: 1rem;
+  line-height: normal;
+  /* Use normal line height */
   outline: none;
+  cursor: pointer;
+
+  /* Custom Arrow */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1em;
 }
 
-/* --- Responsive --- */
-@media screen and (max-width: 768px) {
-  .portfolio-images,
-  .portfolio-videos {
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  }
+/* Specialization Grid */
+.specialization-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  max-width: 800px;
 }
 
+/* Footer Buttons */
+.form-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 4rem;
+  border-top: 1px solid #222;
+  padding-top: 2rem;
+}
 
-/* Responsive adjustments */
-@media screen and (max-width: 768px) {
-  .portfolio-container p input[type="number"],
-  .portfolio-container input[type="text"] {
-    width: 100%;
-    margin-bottom: 0.5rem;
-  }
+.btn-back {
+  background: #fff;
+  color: #000;
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-continue {
+  background: #CBB26A;
+  /* Gold */
+  color: #000;
+  border: none;
+  padding: 0.8rem 2.5rem;
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-continue:hover {
+  background: #d4b96e;
 }
 
 /* Responsive */
-@media screen and (max-width: 768px) {
-  .portfolio-form,
-  .feature-section {
-    max-width: 100%;
+@media (max-width: 768px) {
+  .form-row-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
   }
 
-  .location-section input {
-    width: 100%;
-    margin-bottom: 0.5rem;
+  .specialization-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .portfolio-header {
+    padding: 0 1rem;
+  }
+
+  .about-content {
+    padding: 1rem;
   }
 }

@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
-import { User, LogOut } from "lucide-react";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
+import { User, LogOut, ArrowLeft } from "lucide-react";
 import logo from "./assets/logo.jpg"; 
 import "./Navbar.css"; 
 
 const Navbar = () => {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
+
+  const location = useLocation();
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -22,6 +24,11 @@ const Navbar = () => {
   return (
     <header className="navbar">
       <div className="navbar-left">
+        {location.pathname !== "/" && (
+          <button onClick={() => navigate(-1)} className="nav-back-btn">
+            <ArrowLeft size={24} />
+          </button>
+        )}
         <img src={logo} alt="Logo" className="navbar-logo" onClick={() => navigate("/")} />
         <NavLink to="/creators" className="navbar-text" style={{ textDecoration: 'none' }}>EXPLORE CREATORS</NavLink>
       </div>
