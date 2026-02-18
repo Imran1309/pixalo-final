@@ -20,6 +20,7 @@ import PhotographerBookings from "./components/PhotographerBookings";
 import RateReview from "./components/RateReview";
 import PhotographerReviews from "./pages/PhotographerReviews";
 import ResetPassword from "./auth/ResetPassword";
+import CreatorProfile from "./auth/CreatorProfile";
 
 // Wrapper to conditionally show Navbar
 const AppWrapper = () => {
@@ -37,6 +38,7 @@ const AppWrapper = () => {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/creator-login" element={<CreatorLogin />} />
         <Route path="/creator-signup" element={<CreatorSignup />} />
+        <Route path="/creator-profile" element={<CreatorProfile />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/portfolio" element={<PhotographerPortfolio />} />
         <Route path="/portfolio/media" element={<PortfolioMedia />} />
