@@ -1,0 +1,235 @@
+/* ---------------- View Profile Page - Dark Gold Theme ---------------- */
+
+.vp-container {
+  max-width: 950px;
+  margin: 3rem auto;
+  padding: 2.5rem;
+  background: #1e1e1e;
+  /* Dark container */
+  color: #f5f5f5;
+  /* Light text */
+  border-radius: 16px;
+  border: 2px solid #b3995e;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+  font-family: "Poppins", sans-serif;
+  line-height: 1.6;
+}
+
+/* --- Name --- */
+.vp-name {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #b3995e;
+  /* gold accent */
+  margin-bottom: 0.8rem;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+/* --- Introduction --- */
+.vp-intro {
+  text-align: center;
+  font-style: italic;
+  color: #ccc;
+  font-size: 1rem;
+  margin-bottom: 2rem;
+}
+
+/* --- Details Section --- */
+.vp-details {
+  background: #222;
+  /* dark detail card */
+  padding: 1.5rem;
+  border-radius: 12px;
+  border-left: 4px solid #b3995e;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.vp-details p {
+  margin: 0.5rem 0;
+  color: #f5f5f5;
+  font-size: 0.95rem;
+}
+
+.vp-details b {
+  color: #b3995e;
+}
+
+/* --- Section Titles --- */
+.vp-section h2 {
+  color: #b3995e;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid rgba(179, 153, 94, 0.3);
+  padding-bottom: 0.4rem;
+  font-weight: 600;
+}
+
+/* --- Services Grid --- */
+.vp-services-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+}
+
+.vp-service-card {
+  background: #222;
+  /* dark card */
+  padding: 1rem 1.2rem;
+  border-radius: 10px;
+  flex: 1 1 260px;
+  border-left: 4px solid #b3995e;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.vp-service-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 6px 20px rgba(179, 153, 94, 0.35);
+}
+
+.vp-service-card h4 {
+  color: #b3995e;
+  margin-bottom: 0.4rem;
+}
+
+/* --- Portfolio Section --- */
+.vp-portfolio-images,
+.vp-portfolio-videos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+  justify-content: center;
+}
+
+.vp-portfolio-images img,
+.vp-portfolio-videos iframe,
+.vp-portfolio-videos video {
+  border-radius: 10px;
+  max-width: 260px;
+  max-height: 190px;
+  object-fit: cover;
+  border: 2px solid rgba(179, 153, 94, 0.3);
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.vp-portfolio-images img:hover,
+.vp-portfolio-videos iframe:hover,
+.vp-portfolio-videos video:hover {
+  transform: scale(1.05);
+  border-color: #b3995e;
+  box-shadow: 0 0 15px rgba(179, 153, 94, 0.4);
+}
+
+/* --- Video Cards --- */
+.vp-video-card {
+  text-align: center;
+  max-width: 300px;
+}
+
+.vp-video-card h4 {
+  margin-top: 0.5rem;
+  color: #b3995e;
+}
+
+.vp-video-card p {
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+/* --- Loading & Error --- */
+.vp-loading,
+.vp-error {
+  text-align: center;
+  color: #b3995e;
+  font-weight: 600;
+  margin-top: 2.5rem;
+  font-size: 1.1rem;
+}
+
+/* --- Reviews Button --- */
+.vp-reviews-btn {
+  padding: 12px 25px;
+  background: #bfa06b;
+  /* metallic gold */
+  color: #111;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(191, 160, 107, 0.4);
+}
+
+.vp-reviews-btn:hover {
+  background: #d4c07a;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(191, 160, 107, 0.5);
+}
+
+/* --- Responsive --- */
+@media screen and (max-width: 768px) {
+  .vp-container {
+    padding: 1.5rem;
+    margin: 1rem auto;
+  }
+
+  .vp-name {
+    font-size: 1.8rem;
+  }
+
+  /* Stack services */
+  .vp-services-grid {
+    flex-direction: column;
+  }
+
+  .vp-service-card {
+    flex: 1 1 auto;
+    width: 100%;
+  }
+
+  /* Portfolio Images */
+  .vp-portfolio-images,
+  .vp-portfolio-videos {
+    /* Use grid for better mobile stacking logic, or keep flex but ensure full width */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem;
+  }
+
+  .vp-portfolio-images img,
+  .vp-portfolio-videos iframe,
+  .vp-portfolio-videos video,
+  .vp-video-card {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .vp-container {
+    padding: 1rem;
+    border-radius: 8px;
+    border-width: 1px;
+  }
+
+  .vp-name {
+    font-size: 1.5rem;
+  }
+
+  .vp-section h2 {
+    font-size: 1.2rem;
+  }
+
+  /* Single column for images on very small screens? or stick to 2? 
+     Let's allow 2 usually, but if too small, 1. */
+  .vp-portfolio-images,
+  .vp-portfolio-videos {
+    grid-template-columns: 1fr;
+  }
+}
