@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo.jpg";
 import defaultProfile from "../assets/default-profile-pic.png";
-import { Upload, Lightbulb } from "lucide-react"; 
+import { Upload, Lightbulb, X } from "lucide-react"; 
 import "./PortfolioMedia.css";
 import "./PhotographerPortfolio.css"; // Reuse header styles
 
@@ -19,7 +19,19 @@ const PortfolioMedia = () => {
     "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=300&q=80"  // Portrait
   ]);
 
-  const [videos, setVideos] = useState([1, 2, 3]); // Just 3 placeholders
+  const [videos, setVideos] = useState([
+    { id: 1, link: '', title: '', description: '', isUploaded: false },
+    { id: 2, link: '', title: '', description: '', isUploaded: false },
+    { id: 3, link: '', title: '', description: '', isUploaded: false }
+  ]);
+
+  const handleVideoChange = (id, field, value) => {
+    setVideos(prev => prev.map(v => v.id === id ? { ...v, [field]: value } : v));
+  };
+
+  const handleUploadVideo = (id) => {
+    setVideos(prev => prev.map(v => v.id === id ? { ...v, isUploaded: true } : v));
+  };
 
   // Placeholder state for file input ref
   const fileInputRef = React.useRef(null);
@@ -37,8 +49,20 @@ const PortfolioMedia = () => {
     }
   };
 
+  const handleRemoveImage = (indexToRemove) => {
+    setImages(prev => prev.filter((_, index) => index !== indexToRemove));
+  };
+
   const handleAddVideo = () => {
-    setVideos(prev => [...prev, prev.length + 1]);
+    setVideos(prev => [...prev, { id: Date.now(), link: '', title: '', description: '', isUploaded: false }]);
+  };
+
+  const handleVideoFileChange = (id, e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const url = URL.createObjectURL(file);
+      setVideos(prev => prev.map(v => v.id === id ? { ...v, link: url, title: file.name } : v));
+    }
   };
 
   const handleContinue = () => {
@@ -86,6 +110,9 @@ const PortfolioMedia = () => {
               {images.map((img, idx) => (
                   <div className="image-card" key={idx}>
                       <img src={img} alt="Portfolio" />
+                      <button className="remove-image-btn" onClick={() => handleRemoveImage(idx)} title="Remove image">
+                          <X size={16} />
+                      </button>
                   </div>
               ))}
           </div>
@@ -99,28 +126,80 @@ const PortfolioMedia = () => {
           <p className="media-section-subtitle">Add links to your videos hosted on youtube or anywhere to showcase your videography skills</p>
 
           <div className="video-grid">
-              {videos.map((v, i) => (
-                  <div className="video-card" key={i}>
-                      <div className="input-group">
-                          <label>Video Link</label>
-                          <input type="text" placeholder="Placeholder" className="dark-input" />
-                      </div>
-                      <div className="input-group">
-                          <label>Video Title</label>
-                          <input type="text" placeholder="Wedding Reel" className="dark-input" />
-                      </div>
-                      <div className="input-group">
-                          <label>Description(optional)</label>
-                          <div className="desc-box">
-                              <div className="desc-toolbar">
-                                  <span>Roboto</span> <span>Paragraph</span>
+              {videos.map((v) => (
+                  <div className="video-card" key={v.id}>
+                      {v.isUploaded ? (
+                          <div className="video-preview">
+                              {/* If link is a youtube link or instagram link, render an iframe, otherwise fallback to video tag */}
+                              {v.link.includes('youtube.com') || v.link.includes('youtu.be') ? (
+                                  <iframe 
+                                      width="100%" 
+                                      height="200" 
+                                      src={v.link.replace("watch?v=", "embed/").replace("youtu.be/", "www.youtube.com/embed/")} 
+                                      title={v.title}
+                                      frameBorder="0" 
+                                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                      allowFullScreen
+                                      className="video-player"
+                                  ></iframe>
+                              ) : v.link.includes('instagram.com') ? (
+                                  <iframe 
+                                      width="100%" 
+                                      height="220" 
+                                      src={`${v.link.split('?')[0].replace(/\/$/, '')}/embed`} 
+                                      title={v.title}
+                                      frameBorder="0" 
+                                      allow="encrypted-media"
+                                      allowFullScreen
+                                      className="video-player"
+                                  ></iframe>
+                              ) : (
+                                  <video width="100%" height="200" controls className="video-player" src={v.link}>
+                                      Your browser does not support the video tag.
+                                  </video>
+                              )}
+                              <h4 className="video-preview-title">{v.title || "Untitled Video"}</h4>
+                              <p className="video-preview-desc">{v.description || "No description provided."}</p>
+                              <div className="card-footer">
+                                  <button className="mini-upload-btn" onClick={() => handleVideoChange(v.id, 'isUploaded', false)}>Edit</button>
                               </div>
-                              <textarea placeholder="Your text goes here" className="desc-input"></textarea>
                           </div>
-                      </div>
-                      <div className="card-footer">
-                          <button className="mini-upload-btn">Upload</button>
-                      </div>
+                      ) : (
+                          <>
+                              <div className="input-group">
+                                  <label>Video Link or Upload File</label>
+                                  <div style={{ display: 'flex', gap: '0.5rem' }}>
+                                      <input type="text" placeholder="https://youtube.com/..." className="dark-input" value={v.link} onChange={(e) => handleVideoChange(v.id, 'link', e.target.value)} />
+                                      <input 
+                                          type="file" 
+                                          accept="video/*" 
+                                          id={`video-upload-${v.id}`}
+                                          style={{ display: 'none' }}
+                                          onChange={(e) => handleVideoFileChange(v.id, e)}
+                                      />
+                                      <label htmlFor={`video-upload-${v.id}`} className="mini-upload-btn" style={{ cursor: 'pointer', whiteSpace: 'nowrap', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                          Browse
+                                      </label>
+                                  </div>
+                              </div>
+                              <div className="input-group">
+                                  <label>Video Title</label>
+                                  <input type="text" placeholder="Wedding Reel" className="dark-input" value={v.title} onChange={(e) => handleVideoChange(v.id, 'title', e.target.value)} />
+                              </div>
+                              <div className="input-group">
+                                  <label>Description(optional)</label>
+                                  <div className="desc-box">
+                                      <div className="desc-toolbar">
+                                          <span>Roboto</span> <span>Paragraph</span>
+                                      </div>
+                                      <textarea placeholder="Your text goes here" className="desc-input" value={v.description} onChange={(e) => handleVideoChange(v.id, 'description', e.target.value)}></textarea>
+                                  </div>
+                              </div>
+                              <div className="card-footer">
+                                  <button className="mini-upload-btn" onClick={() => handleUploadVideo(v.id)}>Upload</button>
+                              </div>
+                          </>
+                      )}
                   </div>
               ))}
           </div>

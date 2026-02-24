@@ -192,26 +192,24 @@
 
 /* Divider */
 .divider {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr max-content 1fr;
+    grid-gap: 10px;
     align-items: center;
     width: 100%;
-    /* Ensure full width */
     margin: 1.5rem 0;
-    color: #ccc;
 }
 
 .divider::before,
 .divider::after {
     content: '';
-    flex: 1;
-    height: 2px;
-    /* Explicit thickness */
+    display: block;
+    height: 1px;
     background-color: #ffffff;
-    /* Solid white line */
+    opacity: 0.5;
 }
 
 .divider span {
-    padding: 0 1rem;
     font-size: 0.9rem;
     color: #ccc;
     font-weight: 500;

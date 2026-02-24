@@ -167,16 +167,7 @@ const handleGoogleLogin = useGoogleLogin({
                 Sign up
               </span>
             </p>
-            <p className="signup-text" style={{ marginTop: "10px" }}>
-              Are you a Creator?{" "}
-              <span className="signup-link" onClick={() => navigate("/creator-login")}>
-                Creator Login
-              </span>
-              {" or "}
-              <span className="signup-link" onClick={() => navigate("/creator-signup")}>
-                Join as Creator
-              </span>
-            </p>
+
           </div>
           
           <div className="login-footer">

@@ -1401,7 +1401,7 @@
 /* ---------------- Services Section (White Cards) ---------------- */
 .services-section {
   background: #000;
-  
+
   color: #fff;
 }
 
@@ -1510,6 +1510,7 @@
   margin-bottom: 0.5rem;
   z-index: 1;
   max-width: 95%;
+  color: #000;
 }
 
 .service-card-white p {

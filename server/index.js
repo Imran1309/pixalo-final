@@ -18,11 +18,13 @@ app.use(cors({
 const path = require('path');
 const userRoutes = require('./routes/userRoutes');
 const photographerRoutes = require('./routes/photographerRoutes');
+const bookingRoutes = require('./routes/bookingRoutes');
 
 // Route Middlewares
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/photographers', photographerRoutes);
+app.use('/api/bookings', bookingRoutes);
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Database Connection

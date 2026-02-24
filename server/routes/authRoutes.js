@@ -8,6 +8,7 @@ router.post('/register', authController.register);
 router.post('/register-creator', authController.registerCreator);
 router.post('/login', authController.login);
 router.post('/google-login', authController.googleLogin);
+router.post('/facebook-login', authController.facebookLogin);
 router.post('/verify-email', authController.verifyEmail);
 router.post('/resend-otp', authController.resendOtp);
 router.put('/update-profile', auth, authController.updateProfile);

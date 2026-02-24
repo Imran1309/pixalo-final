@@ -114,6 +114,30 @@ const FindCreators = () => {
 
   const categoriesList = ["Wedding photography", "Portrait sessions", "Product photography", "Event videography", "Social media reels"];
 
+  const clearSearchAndFilters = () => {
+      resetFilters();
+      setSearchParams(prev => ({ ...prev, location: "" }));
+      navigate("/creators");
+  };
+
+  const filteredPhotographers = photographers.filter(p => {
+      if (selectedFilters.categories.length > 0) {
+          const hasCategory = selectedFilters.categories.some(cat => 
+              (p.specialization && p.specialization.includes(cat)) ||
+              (p.services && p.services.some(s => s.serviceName.toLowerCase().includes(cat.toLowerCase())))
+          );
+          if (!hasCategory) return false;
+      }
+      if (selectedFilters.priceRange && (p.startingPrice || 2000) > selectedFilters.priceRange) {
+          return false;
+      }
+      if (selectedFilters.ratings.length > 0) {
+          const ratingFloor = Math.round(p.rating || 5);
+          if (!selectedFilters.ratings.includes(ratingFloor)) return false;
+      }
+      return true;
+  });
+
   return (
     <div className="creators-page">
       {/* Top Search Bar */}
@@ -239,23 +263,29 @@ const FindCreators = () => {
          <main className="creators-content">
              
              <div className="creators-grid-new">
-                 {photographers.length === 0 && (
+                 {filteredPhotographers.length === 0 && (
                      <div className="no-results-box">
                          <h3>No results? Try expanding your search</h3>
                          <div className="no-results-actions">
-                             <button onClick={resetFilters}>Remove filters</button>
-                             <button>Expand distance</button>
-                             <button onClick={resetFilters}>All categories</button>
+                             <button onClick={clearSearchAndFilters}>Remove filters</button>
+                             <button onClick={clearSearchAndFilters}>Expand distance</button>
+                             <button onClick={clearSearchAndFilters}>All categories</button>
                          </div>
                      </div>
                  )}
 
-                 {photographers.map((p) => (
+                 {filteredPhotographers.map((p) => (
                     <div key={p._id} className="creator-card-new">
                         <div className="card-image-box">
                             <img 
-                                src={p.profilePicture || "https://images.unsplash.com/photo-1554048612-387768052bf7?auto=format&fit=crop&q=80"} 
-                                alt={p.userId?.name} 
+                                src={
+                                    (p.portfolioImages && p.portfolioImages.length > 0) ? p.portfolioImages[0] : 
+                                    (p.userId?.profilePic && p.userId.profilePic && !p.userId.profilePic.endsWith('/uploads/') && p.userId.profilePic !== "") 
+                                        ? p.userId.profilePic 
+                                        : "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=300&q=80"
+                                } 
+                                alt={p.userId?.name || "Creator"} 
+                                onError={(e) => { e.target.onError = null; e.target.src = "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=300&q=80"; }}
                             />
                         </div>
                         <div className="card-details">
@@ -289,7 +319,7 @@ const FindCreators = () => {
                 ))}
              </div>
              
-             {photographers.length > 0 && (
+             {filteredPhotographers.length > 0 && (
                  <div className="load-more-container">
                      <button className="load-more-btn">LOAD MORE</button>
                  </div>

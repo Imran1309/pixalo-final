@@ -11,4 +11,7 @@ router.get('/profile/:id', photographerController.getPhotographerById);
 router.post('/profile', auth, photographerController.updateProfile);
 router.patch('/profile', auth, photographerController.updateProfile);
 
+router.get('/:id/reviews', photographerController.getReviews);
+router.post('/:id/reviews', photographerController.addReview);
+
 module.exports = router;

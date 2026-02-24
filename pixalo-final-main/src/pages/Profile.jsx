@@ -199,7 +199,11 @@ const Profile = () => {
           setUser(updatedUser);
           localStorage.setItem("user", JSON.stringify(updatedUser));
           toast.success("Profile updated successfully!");
-          navigate("/portfolio");
+          if (updatedUser.role === "photographer") {
+             navigate("/portfolio");
+          } else {
+             navigate("/");
+          }
           return;
       }
 
@@ -231,7 +235,11 @@ const Profile = () => {
         setUser(data);
         localStorage.setItem("user", JSON.stringify(data));
         toast.success("Profile updated successfully!");
-        navigate("/portfolio");
+        if (data.role === "photographer") {
+           navigate("/portfolio");
+        } else {
+           navigate("/");
+        }
       } else {
         toast.error(data.message || "Update failed");
       }
@@ -451,7 +459,9 @@ const Profile = () => {
 
           {/* Submit Button */}
           <div className="continue-btn-container">
-             <button type="submit" className="continue-btn">Continue</button>
+             <button type="submit" className="continue-btn">
+               {user && user.role === 'photographer' ? 'Continue' : 'Save Update'}
+             </button>
           </div>
 
         </form>

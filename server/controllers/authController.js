@@ -15,7 +15,7 @@ const transporter = nodemailer.createTransport({
 
 exports.googleLogin = async (req, res) => {
     try {
-        const { access_token } = req.body;
+        const { access_token, role } = req.body;
 
         // specific to Node 18+ fetch
         const response = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
@@ -39,6 +39,7 @@ exports.googleLogin = async (req, res) => {
             const nameParts = name.split(' ');
             const firstName = nameParts[0] || name;
             const lastName = nameParts.length > 1 ? nameParts.slice(1).join(' ') : '';
+            const finalRole = role && role === 'photographer' ? 'photographer' : 'customer';
 
             user = new User({
                 name,
@@ -46,12 +47,21 @@ exports.googleLogin = async (req, res) => {
                 firstName,
                 lastName,
                 profilePic: picture,
-                password: randomPassword, // You might hash this if validation runs on save
-                role: 'customer', // Default role
+                password: randomPassword,
+                role: finalRole,
                 isVerified: true, // Google emails are verified
                 googleId: sub
             });
             await user.save();
+
+            if (finalRole === 'photographer') {
+                const Photographer = require('../models/Photographer');
+                const photographer = new Photographer({
+                    userId: user._id,
+                    startingPrice: 0,
+                });
+                await photographer.save();
+            }
         }
 
         const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1d' });
@@ -73,9 +83,86 @@ exports.googleLogin = async (req, res) => {
     }
 };
 
+exports.facebookLogin = async (req, res) => {
+    try {
+        const { access_token, role } = req.body;
+
+        // Verify with Facebook Graph API
+        const response = await fetch(`https://graph.facebook.com/me?fields=id,name,email,picture.type(large)&access_token=${access_token}`);
+
+        if (!response.ok) {
+            return res.status(400).json({ message: 'Invalid Facebook Token' });
+        }
+
+        const data = await response.json();
+        const { email, name, id } = data;
+        let picture = '';
+        if (data.picture && data.picture.data && data.picture.data.url) {
+            picture = data.picture.data.url;
+        }
+
+        if (!email) {
+            return res.status(400).json({ message: 'Facebook account must have an email attached' });
+        }
+
+        let user = await User.findOne({ email });
+
+        if (!user) {
+            // Create a new user if not exists
+            const randomPassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8);
+
+            // Name splitting safely
+            const nameParts = name ? name.split(' ') : ['User'];
+            const firstName = nameParts[0] || name;
+            const lastName = nameParts.length > 1 ? nameParts.slice(1).join(' ') : '';
+            const finalRole = role && role === 'photographer' ? 'photographer' : 'customer';
+
+            user = new User({
+                name: name || 'Facebook User',
+                email,
+                firstName,
+                lastName,
+                profilePic: picture,
+                password: randomPassword,
+                role: finalRole,
+                isVerified: true, // Facebook emails are verified
+                // Note: could add facebookId to schema if desired
+            });
+            await user.save();
+
+            if (finalRole === 'photographer') {
+                const Photographer = require('../models/Photographer');
+                const photographer = new Photographer({
+                    userId: user._id,
+                    startingPrice: 0,
+                });
+                await photographer.save();
+            }
+        }
+
+        const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1d' });
+
+        res.status(200).json({
+            token,
+            user: {
+                _id: user._id,
+                name: user.name,
+                email: user.email,
+                role: user.role,
+                profilePic: user.profilePic
+            }
+        });
+
+    } catch (err) {
+        console.error('Facebook Login Error:', err);
+        res.status(500).json({ message: 'Server error', error: err.message });
+    }
+};
+
 exports.register = async (req, res) => {
     try {
-        const { name, email, password, role, phone, gender, dob, address, country, city, zipCode, profilePic, portfolio, bio, firstName, lastName } = req.body;
+        let { name, email, password, role, phone, gender, dob, address, country, city, zipCode, profilePic, portfolio, bio, firstName, lastName } = req.body;
+        email = email ? email.trim().toLowerCase() : email;
         let user = await User.findOne({ email });
         if (user) return res.status(400).json({ message: 'User already exists' });
 
@@ -125,7 +212,8 @@ exports.register = async (req, res) => {
 
 exports.registerCreator = async (req, res) => {
     try {
-        const { firstName, lastName, gender, phone, email, dob, country, city, zipCode, password, profilePic, portfolio, bio } = req.body;
+        let { firstName, lastName, gender, phone, email, dob, country, city, zipCode, password, profilePic, portfolio, bio } = req.body;
+        email = email ? email.trim().toLowerCase() : email;
 
         let user = await User.findOne({ email });
         if (user) return res.status(400).json({ message: 'User already exists' });
@@ -191,7 +279,14 @@ exports.verifyEmail = async (req, res) => {
 exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
-        const user = await User.findOne({ email });
+        const searchVal = email ? email.trim() : "";
+        const escapedSearchVal = searchVal.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const user = await User.findOne({
+            $or: [
+                { email: { $regex: `^${escapedSearchVal}$`, $options: 'i' } },
+                { name: { $regex: `^${escapedSearchVal}$`, $options: 'i' } }
+            ]
+        });
 
         if (!user) return res.status(400).json({ message: 'Invalid credentials' });
 
@@ -237,9 +332,8 @@ exports.resendOtp = async (req, res) => {
         if (!user) return res.status(404).json({ message: "User not found" });
 
         const otp = generateOTP();
-        user.otp = otp;
-        user.otpExpires = new Date(Date.now() + 10 * 60 * 1000);
-        await user.save();
+        const otpExpires = new Date(Date.now() + 10 * 60 * 1000);
+        await User.updateOne({ _id: user._id }, { $set: { otp, otpExpires } });
 
         await transporter.sendMail({
             to: email,
@@ -320,9 +414,8 @@ exports.forgotPassword = async (req, res) => {
         if (!user) return res.status(404).json({ message: "User not found" });
 
         const otp = generateOTP();
-        user.otp = otp;
-        user.otpExpires = new Date(Date.now() + 10 * 60 * 1000);
-        await user.save();
+        const otpExpires = new Date(Date.now() + 10 * 60 * 1000);
+        await User.updateOne({ _id: user._id }, { $set: { otp, otpExpires } });
 
         await transporter.sendMail({
             to: email,
@@ -351,10 +444,14 @@ exports.resetPassword = async (req, res) => {
             return res.status(400).json({ message: 'Invalid or expired OTP' });
         }
 
-        user.password = newPassword;
-        user.otp = undefined;
-        user.otpExpires = undefined;
-        await user.save();
+        // Hash new password manually since we bypass pre('save') hook
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(newPassword, salt);
+
+        await User.updateOne({ _id: user._id }, {
+            $set: { password: hashedPassword },
+            $unset: { otp: 1, otpExpires: 1 }
+        });
 
         res.json({ message: "Password reset successfully. Please login." });
     } catch (err) {
