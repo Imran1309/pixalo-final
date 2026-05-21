@@ -24,9 +24,6 @@ UI/UX design improvements
 Real-world project development workflow
 🔗 GitHub Repository
 
-Add your repository link here:
-
-https://github.com/your-username/your-repository-name
 📌 Future Enhancements
 User authentication
 Booking system integration
