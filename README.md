@@ -1,16 +1,35 @@
-# React + Vite
+A modern and responsive web application developed to help users easily find and book nearby photographers and videographers for events, photoshoots, weddings, and special occasions.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+🚀 Tech Stack
+React.js
+TypeScript
+Tailwind CSS
+Vite
+✨ Features
+Responsive and modern UI
+Photographer & videographer listing section
+Clean navigation and smooth user experience
+Attractive landing page design
+Fast and optimized frontend performance
+Mobile-friendly interface
+🎯 Purpose of the Project
 
-Currently, two official plugins are available:
+This project was developed during my internship at SkillVita to improve frontend development skills and build a real-world service booking platform using modern web technologies.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+📚 What I Learned
+Building scalable frontend applications using React & TypeScript
+Creating responsive UI with Tailwind CSS
+Component-based architecture
+UI/UX design improvements
+Real-world project development workflow
+🔗 GitHub Repository
 
-## React Compiler
+Add your repository link here:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+https://github.com/your-username/your-repository-name
+📌 Future Enhancements
+User authentication
+Booking system integration
+Payment gateway support
+Map and location services
+Backend & database integration
